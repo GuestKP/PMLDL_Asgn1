@@ -3,17 +3,13 @@ from pydantic import BaseModel
 import pickle
 import numpy as np
 # inside Docker it will be visible
-from model_cnn import ModelCNN
+from model_cnn import ModelCNN, transform
 import torch
 from torchvision import transforms
 
 model = ModelCNN()
 # inside Docker it will be visible
 model.load_state_dict(torch.load("./mnist_cnn.pt", weights_only=True))
-transform=transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize((0.1307,), (0.3081,))
-        ])
 
 # Define the FastAPI app
 app = FastAPI()

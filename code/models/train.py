@@ -6,9 +6,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torchvision import datasets, transforms
+from torchvision import datasets
 from torch.optim.lr_scheduler import StepLR
-from model_cnn import ModelCNN
+from model_cnn import ModelCNN, transform
 
 
 def train(args, model, device, train_loader, optimizer, epoch):
@@ -54,7 +54,7 @@ def main():
                         help='input batch size for training (default: 64)')
     parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                         help='input batch size for testing (default: 1000)')
-    parser.add_argument('--epochs', type=int, default=8, metavar='N',
+    parser.add_argument('--epochs', type=int, default=2, metavar='N',
                         help='number of epochs to train (default: 14)')
     parser.add_argument('--lr', type=float, default=1.0, metavar='LR',
                         help='learning rate (default: 1.0)')
@@ -94,10 +94,7 @@ def main():
         train_kwargs.update(cuda_kwargs)
         test_kwargs.update(cuda_kwargs)
 
-    transform=transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize((0.1307,), (0.3081,))
-        ])
+
     dataset1 = datasets.MNIST('./code/datasets/', train=True, download=True, transform=transform)
     dataset2 = datasets.MNIST('./code/datasets/', train=False, transform=transform)
     train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
