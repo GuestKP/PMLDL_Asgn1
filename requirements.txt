@@ -1,0 +1,7 @@
+fastapi
+torch
+torchvision
+numpy
+streamlit
+streamlit_drawable_canvas
+uvicorn
