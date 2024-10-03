@@ -1,0 +1,20 @@
+# Build: from parent directory
+# docker build -t api -f .\code\deployment\api\Dockerfile .
+
+FROM python:3.10
+
+# set a directory for the app
+WORKDIR /usr/src/app
+
+COPY ./requirements.txt .
+# install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# copy all the files to the container
+COPY ./code/deployment/app/ .
+
+# define the port number the container should expose
+EXPOSE 8501
+
+# run the command
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
