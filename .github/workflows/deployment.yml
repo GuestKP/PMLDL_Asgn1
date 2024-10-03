@@ -1,8 +1,8 @@
 name: Train and Deploy
 
 on:
-  #schedule:
-  #  - cron: '*/10 * * * *' # Runs every 10 minutes
+  schedule:
+    - cron: '*/60 * * * *' # Runs every 10 minutes
   workflow_dispatch: # Allows manual triggering
 
 jobs:
